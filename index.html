@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch me if you can</title>
+</head>
+<style>
+    body {
+        cursor: url(""), grab;
+    }
+    /* img {
+        width: 80px;
+    } */
+</style>
+
+<body style="position: relative;">
+    <h1>Catch me if you can</h1>
+    <p id="score">0</p>
+    <!-- <button onclick="random_vi_tri();">Random</button> -->
+    <img id="jerryImg" onclick="bat_duoc_roi()" src="jerry2.png" style="position: absolute; left: 400px; top: 300px;width: 60px;height: 60px;" alt="jerry">
+    <img id="tomImg" onclick="bat_duoc_roi()" src="tom.png" style="position: absolute; left: 100px; top: 300px;width: 60px;height: 60px;" alt="jerry">
+</body>
+<script>
+    let diem = 0;
+    // Tương đương với parseInt
+    // 1. Math.floor - làm tròn xuống, vd: 3.9 -> 3, 3.1 -> 3
+    // 2. Math.round - làm tròn đúng, vd: 3.9 -> 4, 3.1 -> 3, 3.5 -> 4
+    // 3. Math.ceil - làm tròn lên, vd: 3.9 -> 4, 3.1 -> 4;
+    function random_vi_tri() {
+        let jerry = document.getElementById('jerryImg');
+        let left = Math.floor(Math.random() * (window.innerWidth - parseInt(jerry.style.width))); //inner - độ rộng hiện tại của trình duyệt
+        let top = Math.floor(Math.random() * (window.innerHeight - parseInt(jerry.style.height)));
+        jerry.style.left = left + 'px';
+        jerry.style.top = top + 'px';
+    }
+
+    function bat_duoc_roi() {
+        diem = diem + 1; // diem++ / diem+=1
+        // alert("Bắt được rồi");
+        document.getElementById('score').innerText = diem;
+    }
+
+    setInterval(dichChuyen, 100);
+
+    function sangPhai() {
+        let tom = document.getElementById('tomImg');
+        let left = parseInt(tom.style.left) + 10 + 'px';
+        tom.style.left = left;
+        check_va_cham();
+    }
+
+    function sangTrai() {
+        let tom = document.getElementById('tomImg');
+        let left = parseInt(tom.style.left) - 10 + 'px';
+        tom.style.left = left;
+        check_va_cham();
+    }
+
+    function lenTren() {
+        let tom = document.getElementById('tomImg');
+        let top = parseInt(tom.style.top) - 10 + 'px';
+        tom.style.top = top;
+        check_va_cham();
+    }
+
+    function diXuong() {
+        let tom = document.getElementById('tomImg');
+        let top = parseInt(tom.style.top) + 10 + 'px';
+        tom.style.top = top;
+        check_va_cham();
+    }
+
+    let huong = "left";
+
+    function dichChuyen() {
+        if (huong == 'right') {
+            sangPhai();
+        } else if (huong == 'left') {
+            sangTrai();
+        } else if (huong == 'up') {
+            lenTren();
+        } else {
+            diXuong();
+        }
+    }
+
+    //Bắt sự kiện bàn phim
+    window.addEventListener('keydown', suKienBanPhim)
+
+    function suKienBanPhim(nut) {
+        if (nut.key == 'ArrowRight') {
+            huong = 'right';
+        }
+        if (nut.key == 'ArrowLeft') {
+            huong = 'left';
+        }
+        if (nut.key == 'ArrowUp') {
+            huong = 'up';
+        }
+        if (nut.key == 'ArrowDown') {
+            huong = 'down';
+        }
+    }
+
+    function check_va_cham(params) {
+        let tom = document.getElementById('tomImg');
+        let jerry = document.getElementById('jerryImg');
+        let tomLeft = parseInt(tom.style.left);
+        let tomTop = parseInt(tom.style.top);
+        let jerryLeft = parseInt(jerry.style.left);
+        let jerryTop = parseInt(jerry.style.top);
+        // if (tomLeft + 60 < jerryLeft && tomTop) {
+        //     alert("Bắt được Jerry");
+        //     random_vi_tri();
+        // }
+        if (tomLeft + 60 < jerryLeft || tomLeft > jerryLeft + 60 || tomTop + 60 < jerryTop || tomTop > jerryTop + 60) {
+            //chẳng cần làm gì cả
+        } else {
+            bat_duoc_roi();
+            random_vi_tri();
+        }
+    }
+</script>
+
+</html>

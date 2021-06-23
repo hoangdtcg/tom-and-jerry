@@ -1,0 +1,25 @@
+3 cấu trúc chính của lập trình
+- Cấu trúc điều kiện - condition
+- Cấu trúc lặp - loop
+- Cấu trúc nhảy - jump
+
+- Cấu trúc điều kiện:
+IF - ELSE
+    - if thiếu
+    - if đủ - if else
+    - if lồng nhau
+    - if bậc thang
+    ** Toán tử 3 ngôi: condition? true : false;
+
+Thực hành:
+- Catch me if you can! - Bắt tôi nếu bạn có thể!
+
+- Các trường hợp ko va chạm
+1. tomLeft+60 < jerryLeft
+// 2. jerryLeft+60 < tomLeft
+2. tomLeft > jerryLeft+60
+3. tomTop + 60 < jerryTop
+4. tomTop > jerryTop + 60
+
+
+SWITCH - CASE
